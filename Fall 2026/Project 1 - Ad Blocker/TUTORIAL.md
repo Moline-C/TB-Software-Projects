@@ -2,7 +2,7 @@
 
 In this project, you will build a real system-wide ad blocker using Python.
 
-You will NOT be given the completed program.
+You will **NOT** be given the completed program.
 
 Instead, this tutorial gives you:
 
@@ -16,25 +16,25 @@ Instead, this tutorial gives you:
 
 The goal is to help you build the program yourself without having to guess what you are supposed to do.
 
+You will write and test your code in **Visual Studio Code**, but your project will be connected to **GitHub from the beginning**.
+
 ---
 
-# Table of Contents
+# Project Roadmap
 
-1. Understanding the Project
-2. Project Setup
-3. Understanding the Hosts File
-4. Creating the Blocklist
-5. Reading and Processing Domains
-6. Backing Up the Hosts File
-7. Building the Ad Blocker
-8. Enabling and Disabling Blocking
-9. Whitelist and Custom Blocklist
-10. Building the Main Menu
-11. Testing the Program
-12. Running With Administrator Permissions
-13. GitHub and Documentation
-14. Troubleshooting
-15. Optional Extensions
+You will:
+
+1. Create your personal project repository on GitHub
+2. Clone it into VS Code
+3. Learn how DNS and the hosts file work
+4. Create and process domain lists
+5. Build hosts-file backups
+6. Build the blocking system
+7. Add whitelist and custom blocklist support
+8. Download the real public ad/tracker blocklist
+9. Build the command-line menu
+10. Test everything safely
+11. Complete your personal GitHub repository and documentation
 
 ---
 
@@ -98,7 +98,7 @@ For this project, our program will eventually add entries like:
 0.0.0.0 ads.example.com
 ```
 
-Instead of reaching the real advertising server, the request gets sent to an address that leads nowhere.
+Instead of reaching the real advertising server, the request is redirected away from that server.
 
 The advertisement or tracker cannot load normally.
 
@@ -115,7 +115,23 @@ It cannot:
 - Automatically block every subdomain
 - Guarantee that every application will use the computer's normal hosts-file lookup
 
-So this is a real ad blocker, but it will not block every possible advertisement.
+For example:
+
+```text
+example.com
+```
+
+and:
+
+```text
+ads.example.com
+```
+
+are different hostnames.
+
+Blocking one does not automatically block the other.
+
+This is a real ad-blocking technique, but it will not block every possible advertisement.
 
 ---
 
@@ -127,12 +143,36 @@ Make sure you can explain:
 2. What is an IP address?
 3. What does DNS do?
 4. What does the hosts file do?
-5. Why would pointing an ad domain to `0.0.0.0` prevent it from loading?
+5. Why can changing a hosts-file entry stop a domain from loading normally?
 6. Why can't this program block every ad?
 
 ---
 
-# Part 2: Project Setup
+# Part 2: Create Your Project on GitHub
+
+For this project, you will create your personal GitHub repository **before** creating the project files.
+
+Your workflow will be:
+
+```text
+GitHub Repository
+        ↓
+Clone Repository
+        ↓
+VS Code
+        ↓
+Write + Test Code
+        ↓
+Commit
+        ↓
+Push Back to GitHub
+```
+
+Your code will still be written and tested in VS Code.
+
+GitHub will store the online version of your project.
+
+---
 
 ## Step 2.1: Check Python
 
@@ -160,21 +200,144 @@ You should have Python 3.8 or newer.
 
 ---
 
-## Step 2.2: Create Your Project
+## Step 2.2: Check Git
 
-Create a folder named:
+Run:
+
+```bash
+git --version
+```
+
+You should see a Git version number.
+
+If Git is not installed, install Git before continuing.
+
+---
+
+## Step 2.3: Create Your Personal GitHub Repository
+
+Go to GitHub and sign into your account.
+
+Click:
+
+```text
+New repository
+```
+
+Use this repository name:
 
 ```text
 tb-ad-blocker
 ```
 
-Open that folder in VS Code.
+Set the repository to:
+
+```text
+Public
+```
+
+Check:
+
+```text
+Add a README file
+```
+
+Then click:
+
+```text
+Create repository
+```
+
+You should now have a personal repository named:
+
+```text
+tb-ad-blocker
+```
+
+This is the repository you will eventually be able to use on your resume and portfolio.
 
 ---
 
-## Step 2.3: Create the Files
+## Step 2.4: Clone Your Repository Into VS Code
 
-Create this structure:
+**Cloning** creates a copy of your GitHub repository on your computer and keeps it connected to GitHub.
+
+Open VS Code.
+
+### Windows
+
+Press:
+
+```text
+Ctrl + Shift + P
+```
+
+### macOS
+
+Press:
+
+```text
+Command + Shift + P
+```
+
+Search for:
+
+```text
+Git: Clone
+```
+
+Choose:
+
+```text
+Git: Clone
+```
+
+Go back to your `tb-ad-blocker` repository on GitHub.
+
+Click:
+
+```text
+Code
+```
+
+Make sure:
+
+```text
+HTTPS
+```
+
+is selected.
+
+Copy the repository link.
+
+Paste it into VS Code.
+
+Choose where you want the repository saved on your computer.
+
+When VS Code asks whether you want to open the cloned repository, choose:
+
+```text
+Open
+```
+
+---
+
+## Step 2.5: Confirm the Repository Was Cloned
+
+In the VS Code Explorer, you should see:
+
+```text
+tb-ad-blocker/
+└── README.md
+```
+
+The folder you are looking at in VS Code is your local copy of the same project that exists on GitHub.
+
+---
+
+## Step 2.6: Create the Project Files
+
+Inside the cloned `tb-ad-blocker` repository, create:
 
 ```text
 tb-ad-blocker/
@@ -198,27 +361,118 @@ tb-ad-blocker/
 └── requirements.txt
 ```
 
-### What each Python file does
+Your `README.md` already exists because GitHub created it.
 
-**`main.py`**
+Do not create a second README.
 
-The menu and everything the user interacts with.
+---
 
-**`blocker.py`**
+## What Each Python File Does
 
-The main blocking logic.
+### `main.py`
 
-**`blocklist.py`**
+Handles the menu and everything the user interacts with.
 
-Loads, cleans, adds, removes, and manages domains.
+### `blocker.py`
 
-**`system_utils.py`**
+Contains the main ad-blocking logic.
 
-Handles the operating system, hosts file, backups, administrator permissions, and DNS cache.
+### `blocklist.py`
 
-**`check_domain.py`**
+Loads, cleans, adds, removes, downloads, and manages domains.
 
-A small testing program used to check whether a domain is currently resolving.
+### `system_utils.py`
+
+Handles:
+
+- Operating-system detection
+- Hosts-file location
+- Administrator permissions
+- Backups
+- Safe file writing
+- DNS cache flushing
+
+### `check_domain.py`
+
+A small testing program used to check where a domain currently resolves.
+
+---
+
+## Step 2.7: Make Your First Commit
+
+Save all your files.
+
+Open the VS Code terminal.
+
+Run:
+
+```bash
+git status
+```
+
+You should see the new files you created.
+
+Add them:
+
+```bash
+git add .
+```
+
+Create a commit:
+
+```bash
+git commit -m "Set up ad blocker project structure"
+```
+
+Push it to GitHub:
+
+```bash
+git push
+```
+
+Refresh your repository on GitHub.
+
+Your project structure should now appear there.
+
+---
+
+## Git Vocabulary
+
+### Repository
+
+A project that Git keeps track of.
+
+### Clone
+
+Create a local copy of a GitHub repository.
+
+### Commit
+
+A saved checkpoint of your work.
+
+### Push
+
+Send your local commits to GitHub.
+
+### Pull
+
+Bring newer changes from GitHub onto your computer.
+
+You will use this process throughout the project:
+
+```text
+Write Code
+    ↓
+Test It
+    ↓
+git add .
+    ↓
+git commit
+    ↓
+git push
+```
+
+Do not wait until the entire project is finished before making another commit.
 
 ---
 
@@ -248,17 +502,27 @@ backups/*.bak
 data/blocklist.txt.bak
 ```
 
-### Why?
+---
+
+## Why?
 
 Your backup files contain a copy of the hosts file from **your own computer**.
 
 Those files should never be uploaded to GitHub.
 
+A `.gitignore` tells Git:
+
+```text
+Do not track these files.
+```
+
 ---
 
 ## Step 3.2: `requirements.txt`
 
-This project uses Python's standard library.
+This project uses only Python's standard library.
+
+That means students do not need to install extra Python packages.
 
 Open:
 
@@ -266,7 +530,7 @@ Open:
 requirements.txt
 ```
 
-Add a comment explaining that there are no external packages required.
+Add a comment explaining that no external packages are required.
 
 ### Hint
 
@@ -278,9 +542,69 @@ A Python comment begins with:
 
 ---
 
-# Part 4: Create the Starter Blocklists
+# Part 4: Understand the Blocklists
 
-## Step 4.1: Main Blocklist
+The final project will use a **real public list of advertising and tracking domains**.
+
+You do **not** need to research, collect, or create your own main ad blocklist.
+
+This project uses:
+
+```text
+Peter Lowe's Ad and Tracking Server List
+```
+
+The program will use this hosts-format blocklist:
+
+```text
+https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0
+```
+
+Later, your Python program will download this list automatically.
+
+Before using thousands of real domains, however, you will use a tiny test list.
+
+This makes it much easier and safer to tell whether your code is working.
+
+---
+
+## Step 4.1: Understand the Three Domain Files
+
+Your project has:
+
+```text
+data/blocklist.txt
+data/whitelist.txt
+data/custom_blocklist.txt
+```
+
+### `blocklist.txt`
+
+The main list of advertising and tracking domains.
+
+At first, it will contain only safe test domains.
+
+Later, your program will replace those test domains with the real Peter Lowe blocklist.
+
+### `whitelist.txt`
+
+Domains that should **never** be blocked.
+
+If a domain appears in both the blocklist and whitelist:
+
+```text
+whitelist wins
+```
+
+### `custom_blocklist.txt`
+
+Extra domains that the user personally wants to block.
+
+These are added in addition to the public blocklist.
+
+---
+
+## Step 4.2: Create the Safe Test Blocklist
 
 Open:
 
@@ -291,18 +615,21 @@ data/blocklist.txt
 Add:
 
 ```text
-# TB Ad Blocker - Starter Blocklist
+# TB Ad Blocker - Safe Test Blocklist
+# This file will later be replaced with the real public blocklist.
 
 example.com
 ads.example.com
 tracker.example.com
 ```
 
-We are starting with a tiny list for testing.
+These are development/testing entries.
+
+They are **not** your final real ad blocklist.
 
 ---
 
-## Step 4.2: Whitelist
+## Step 4.3: Whitelist
 
 Open:
 
@@ -313,12 +640,15 @@ data/whitelist.txt
 Add:
 
 ```text
+# TB Ad Blocker - Whitelist
 # Domains in this file should NEVER be blocked.
 ```
 
+Leave the rest empty for now.
+
 ---
 
-## Step 4.3: Custom Blocklist
+## Step 4.4: Custom Blocklist
 
 Open:
 
@@ -329,8 +659,29 @@ data/custom_blocklist.txt
 Add:
 
 ```text
-# Add your own extra blocked domains here.
+# TB Ad Blocker - Custom Blocklist
+# Additional domains the user personally wants blocked.
 ```
+
+Leave the rest empty for now.
+
+---
+
+## Final Blocklist Logic
+
+Eventually your program will calculate:
+
+```text
+Peter Lowe Blocklist
+        +
+Custom Blocklist
+        -
+Whitelist
+        =
+Final Domains to Block
+```
+
+You will write the Python that performs this logic later.
 
 ---
 
@@ -431,7 +782,7 @@ def get_os_name():
 
 ### Fill-in Hints
 
-Research or inspect the output of:
+Inspect:
 
 ```python
 platform.system()
@@ -517,7 +868,7 @@ def get_hosts_path():
         system_root = os.environ.get(__________________, __________________)
 
         # TODO:
-        # Build this path:
+        # Build:
         #
         # System32/drivers/etc/hosts
         #
@@ -567,7 +918,7 @@ import system_utils
 print(system_utils.get_hosts_path())
 ```
 
-Verify that the path looks correct for your computer.
+Verify that the location looks correct for your computer.
 
 ---
 
@@ -624,9 +975,19 @@ Do not edit it yet.
 
 ---
 
-# Part 8: Build `blocklist.py`
+## Git Checkpoint
 
-Now we will work with the domain files.
+After Parts 5 through 7 work:
+
+```bash
+git add .
+git commit -m "Add operating system and hosts file utilities"
+git push
+```
+
+---
+
+# Part 8: Build `blocklist.py`
 
 Open:
 
@@ -647,7 +1008,6 @@ Start with:
 import shutil
 import urllib.request
 
-from datetime import datetime
 from pathlib import Path
 
 
@@ -667,6 +1027,11 @@ BLOCKLIST_FILE = ______________________________
 WHITELIST_FILE = ______________________________
 
 CUSTOM_BLOCKLIST_FILE = ______________________________
+
+
+# This is the real public ad/tracker list used by this project.
+# You do NOT need to find your own list.
+BLOCKLIST_URL = 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0'
 ```
 
 ### Fill-in Hints
@@ -694,6 +1059,24 @@ HOSTS_FILE_ADDRESSES = ('0.0.0.0', '127.0.0.1')
 
 # Domains that our program should never intentionally block.
 NEVER_BLOCK_DOMAINS = {'localhost.localdomain'}
+```
+
+Peter Lowe's downloaded list uses hosts-file lines such as:
+
+```text
+127.0.0.1 advertising-domain.com
+```
+
+Our program only needs the domain:
+
+```text
+advertising-domain.com
+```
+
+Later, our own blocker will build entries using:
+
+```text
+0.0.0.0
 ```
 
 ---
@@ -735,7 +1118,7 @@ An empty list is:
 []
 ```
 
-Look up:
+Research:
 
 ```text
 Python splitlines
@@ -850,7 +1233,7 @@ Decide which values should return `True` and which should return `False`.
 
 # Part 11: Extract a Domain From a Line
 
-A blocklist may contain several formats:
+A blocklist may contain:
 
 ```text
 example.com
@@ -860,6 +1243,12 @@ or:
 
 ```text
 0.0.0.0 example.com
+```
+
+or:
+
+```text
+127.0.0.1 example.com
 ```
 
 or:
@@ -928,13 +1317,17 @@ def extract_domain_from_line(line):
 
 Lists start counting at `0`.
 
-So:
-
 ```python
 parts[0]
 ```
 
 is the first item.
+
+```python
+parts[1]
+```
+
+is the second.
 
 ---
 
@@ -973,12 +1366,14 @@ def read_domains_from_file(path):
     return domains
 ```
 
-### Why a Set?
+---
+
+## Why a Set?
 
 A set:
 
 - Automatically removes duplicates
-- Makes checking whether something exists fast
+- Makes checking whether something already exists fast
 
 ---
 
@@ -1226,6 +1621,18 @@ def remove_domain_from_file(path, domain):
 
 ---
 
+## Git Checkpoint
+
+Once your list processing works:
+
+```bash
+git add .
+git commit -m "Add blocklist processing"
+git push
+```
+
+---
+
 # Part 17: Back Up the Hosts File
 
 Return to:
@@ -1387,19 +1794,19 @@ def explain_admin_requirement():
         pass
 ```
 
-Do not just say:
+Do not only print:
 
 ```text
 Permission denied
 ```
 
-Explain what happened and what the user should do.
+The program should explain what happened and what the user should do.
 
 ---
 
 # Part 19: Safely Write the Hosts File
 
-This is one of the most important parts of the project.
+This is one of the most important parts of the entire project.
 
 Create:
 
@@ -1495,15 +1902,15 @@ raise
 
 ## Important Test
 
-Do NOT intentionally break your real hosts file.
+Do **not** intentionally break your real hosts file.
 
-Test this function using a fake hosts file first.
+Test this function using a fake file first.
 
 Your test should prove:
 
 1. A normal write works.
 2. A failed write causes the backup to be restored.
-3. The broken content does not remain.
+3. Broken content does not remain.
 
 ---
 
@@ -1614,6 +2021,16 @@ def flush_dns():
 
 ---
 
+## Git Checkpoint
+
+```bash
+git add .
+git commit -m "Add hosts file backup and safety utilities"
+git push
+```
+
+---
+
 # Part 21: Start `blocker.py`
 
 Open:
@@ -1645,7 +2062,7 @@ These markers tell the program:
 THIS part belongs to us.
 ```
 
-Anything outside these markers must stay untouched.
+Anything outside those markers must remain untouched.
 
 ---
 
@@ -1726,7 +2143,9 @@ def print_friendly_error(error):
     print('Backups are stored in:', system_utils.BACKUP_DIR)
 ```
 
-### Why does the order matter?
+---
+
+## Why Does the Order Matter?
 
 Some Python exceptions are more specific versions of other exceptions.
 
@@ -1812,7 +2231,9 @@ def remove_blocker_section(hosts_text):
     return ______________________________
 ```
 
-### Main Rule
+---
+
+## Main Rule
 
 Anything outside:
 
@@ -1904,9 +2325,9 @@ def build_hosts_text_with_blocking(current_hosts_text, domains):
     return ______________________________
 ```
 
-This function should **build** the result in memory first.
+This function should **build** the new file in memory first.
 
-It should not modify the real file.
+It should not modify the real hosts file.
 
 ---
 
@@ -1999,7 +2420,6 @@ def enable_blocking():
     domains = ______________________________
 
 
-    # Do not continue with an empty list.
     if len(domains) == 0:
 
         print('There are no domains to block.')
@@ -2077,6 +2497,10 @@ def disable_blocking():
 
 
     try:
+
+        # TODO:
+        # Get the hosts-file path.
+
 
         # TODO:
         # Read the hosts file.
@@ -2162,13 +2586,16 @@ def show_status():
     print('--- Blocking Status ---')
 
 
-    # TODO: Display the detected operating system.
+    # TODO:
+    # Display the detected operating system.
 
 
-    # TODO: Display the hosts-file path.
+    # TODO:
+    # Display the hosts-file path.
 
 
-    # TODO: Display whether the program currently has
+    # TODO:
+    # Display whether the program currently has
     # administrator/root permission.
 
 
@@ -2267,58 +2694,85 @@ def restore_original_hosts():
 
 ---
 
-# Part 33: Whitelist and Custom Blocklist
+## Git Checkpoint
 
-Return to:
-
-```text
-main.py
+```bash
+git add .
+git commit -m "Build core ad blocking logic"
+git push
 ```
 
-But first, make sure `blocklist.py` has:
+---
+
+# Part 33: Whitelist and Custom Blocklist
+
+The same functions you already created will be used for both lists:
 
 ```python
 def add_domain_to_file(path, domain):
-    # Completed earlier
+    # You already created this earlier.
     pass
 
 
 def remove_domain_from_file(path, domain):
-    # Completed earlier
+    # You already created this earlier.
     pass
 ```
 
-These same functions will work for:
+You do **not** need separate functions for:
 
-- Whitelist
-- Custom blocklist
+```text
+whitelist
+```
 
-You do not need separate versions for each list.
+and:
+
+```text
+custom blocklist
+```
+
+Instead, the program passes the correct file path into the same reusable function.
 
 ---
 
-# Part 34: Optional Online Blocklist Updates
+# Part 34: Download the Real Ad/Tracker Blocklist
 
-Return to:
+You have been using a tiny test list while building the program.
+
+Now you will create the feature that downloads the **real blocklist**.
+
+The blocklist source is already provided.
+
+You do not need to find your own.
+
+Your `BLOCKLIST_URL` should already be:
+
+```python
+BLOCKLIST_URL = 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0'
+```
+
+When a download succeeds, the real domains will replace the temporary test entries inside:
+
+```text
+data/blocklist.txt
+```
+
+---
+
+## Step 34.1: Create `download_blocklist()`
+
+Inside:
 
 ```text
 blocklist.py
 ```
 
-Create a constant for the online blocklist source:
-
-```python
-BLOCKLIST_URL = '____________________________________________'
-```
-
-Your instructor will provide or approve the blocklist source.
-
-Then create:
+create:
 
 ```python
 def download_blocklist(url=BLOCKLIST_URL):
     """
-    Download an updated public blocklist.
+    Download the real public ad/tracker blocklist.
 
     Return:
         (True, success_message)
@@ -2328,17 +2782,33 @@ def download_blocklist(url=BLOCKLIST_URL):
     """
 
     # TODO:
-    # Create an HTTP request using urllib.request.
+    # Create an HTTP request.
+    #
+    # Use urllib.request.Request().
+    # Give it a User-Agent such as:
+    #
+    # TB-Ad-Blocker/1.0
+    #
+    request = urllib.request.________(
+        url,
+        headers={
+            'User-Agent': 'TB-Ad-Blocker/1.0'
+        }
+    )
 
 
     try:
 
         # TODO:
-        # Open the URL with a timeout.
+        # Open the request.
+        # Use a timeout of 20 seconds.
+        with urllib.request.________(request, timeout=20) as response:
 
 
-        # TODO:
-        # Read and decode the downloaded text.
+            # TODO:
+            # Read the downloaded bytes.
+            # Decode them into UTF-8 text.
+            downloaded_text = ______________________________
 
 
     except (OSError, ValueError) as error:
@@ -2347,33 +2817,111 @@ def download_blocklist(url=BLOCKLIST_URL):
 
 
     # TODO:
-    # Create an empty set for new domains.
+    # Create an empty SET for valid downloaded domains.
+    new_domains = ________()
 
 
     # TODO:
-    # Process every downloaded line using
-    # extract_domain_from_line().
+    # Split downloaded_text into lines.
+    # Loop through each line.
+    for line in __________________:
+
+
+        # TODO:
+        # Use extract_domain_from_line().
+        domain = ______________________________
+
+
+        if domain is not None:
+
+            # TODO:
+            # Add the domain to new_domains.
+            ______________________________
 
 
     # SAFETY:
-    # If fewer than 10 valid domains were downloaded,
-    # DO NOT replace the existing blocklist.
+    #
+    # A real blocklist should contain many valid domains.
+    #
+    # If fewer than 10 valid domains were received,
+    # assume the download is broken.
+    #
+    # DO NOT replace the current working blocklist.
+    if len(new_domains) < 10:
+
+        return False, 'The download did not contain enough valid domains. The existing blocklist was kept.'
 
 
     # TODO:
-    # If an existing blocklist exists,
-    # make a .bak copy first.
+    # If BLOCKLIST_FILE already exists:
+    #
+    # copy it to:
+    #
+    # data/blocklist.txt.bak
+    #
+    if BLOCKLIST_FILE.________():
+
+        ______________________________
 
 
     # TODO:
-    # Save the new domains.
+    # Sort the downloaded domains.
+    # Save them into BLOCKLIST_FILE.
+    ______________________________
 
 
-    # TODO:
-    # Return True and a helpful success message.
+    return True, f'Saved {len(new_domains)} domains to the blocklist.'
 ```
 
-This feature is not needed to understand basic ad blocking, but it allows the application to refresh its domain list later.
+### Fill-in Hints
+
+Useful tools:
+
+```text
+urllib.request.Request
+urllib.request.urlopen
+response.read()
+.decode()
+.splitlines()
+set()
+.add()
+Path.exists()
+shutil.copy2()
+sorted()
+write_lines()
+```
+
+---
+
+## What Happened to the Test Blocklist?
+
+At the beginning, `blocklist.txt` contained:
+
+```text
+example.com
+ads.example.com
+tracker.example.com
+```
+
+Those were only there to help you build and test the program safely.
+
+After a successful real blocklist download:
+
+```text
+data/blocklist.txt
+```
+
+will contain the actual public ad/tracker domains.
+
+You are **not** expected to manually type thousands of domains.
+
+---
+
+## Important Safety Rule
+
+Never replace a working blocklist with an empty or obviously broken download.
+
+That is why your program checks the number of valid domains **before** replacing the file.
 
 ---
 
@@ -2509,7 +3057,7 @@ def offer_to_apply_changes():
 
             # TODO:
             # Re-enable blocking so the hosts file
-            # is rebuilt with the updated lists.
+            # is rebuilt using the updated lists.
             ______________________________
 
 
@@ -2540,7 +3088,6 @@ def add_domain_flow(file_path, list_name):
     domain = ______________________________
 
 
-    # If invalid:
     if domain is None:
 
         print('That does not look like a valid domain.')
@@ -2613,7 +3160,7 @@ def handle_update_blocklist():
     Allow the user to:
 
     1. Reload current list files
-    2. Download a fresh blocklist
+    2. Download the real public blocklist
     3. Cancel
     """
 
@@ -2621,7 +3168,7 @@ def handle_update_blocklist():
     print('--- Update / Reload Blocklist ---')
 
     print('1. Reload current list files')
-    print('2. Download a fresh blocklist')
+    print('2. Download the latest Peter Lowe blocklist')
     print('3. Cancel')
 
 
@@ -2634,6 +3181,7 @@ def handle_update_blocklist():
 
         # TODO:
         # Count the current domains to block.
+        count = ______________________________
 
 
         # TODO:
@@ -2642,26 +3190,39 @@ def handle_update_blocklist():
 
         # TODO:
         # Offer to apply the changes.
-        pass
+        ______________________________
 
 
     elif choice == '2':
 
+        print('This will download the public ad/tracker blocklist.')
+        print('Your old blocklist will be backed up first.')
+
+
         # TODO:
-        # Ask the user to confirm the download.
+        # Ask whether the user wants to continue.
+        if not __________________:
+
+            print('Cancelled.')
+            return
 
 
         # TODO:
         # Call download_blocklist().
+        success, message = ______________________________
 
 
         # TODO:
         # Display the returned message.
+        print(__________________)
 
 
         # TODO:
-        # If successful, offer to apply the changes.
-        pass
+        # If download succeeded,
+        # offer to apply the updated list.
+        if __________________:
+
+            ______________________________
 
 
     else:
@@ -2683,7 +3244,8 @@ def main():
 
     # TODO:
     # If get_os_name() returns "unknown",
-    # explain that the OS is unsupported and stop.
+    # explain that the operating system is unsupported
+    # and stop the program.
 
 
     # TODO:
@@ -2752,14 +3314,14 @@ def main():
         elif choice == '8':
 
             # TODO:
-            # Update/reload blocklist.
+            # Update/reload the blocklist.
             ______________________________
 
 
         elif choice == '9':
 
             # TODO:
-            # Restore original hosts file.
+            # Restore the original hosts file.
             ______________________________
 
 
@@ -2795,6 +3357,16 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, EOFError):
 
         print('\nExiting. Goodbye!')
+```
+
+---
+
+## Git Checkpoint
+
+```bash
+git add .
+git commit -m "Add command line menu and blocklist download"
+git push
 ```
 
 ---
@@ -2854,7 +3426,7 @@ Those tools may query DNS directly and can give confusing results for this proje
 
 Do not start by blocking random important websites.
 
-Use harmless test domains first.
+Use the small test list first.
 
 ---
 
@@ -2932,7 +3504,7 @@ and:
 whitelist.txt
 ```
 
-It should NOT appear in the final set returned by:
+It should **not** appear in the final set returned by:
 
 ```text
 get_domains_to_block()
@@ -2969,7 +3541,7 @@ Do not intentionally cause the real hosts file to fail.
 
 Use fake hosts text.
 
-Confirm that:
+Confirm:
 
 - Existing lines stay
 - The START marker is added
@@ -2995,7 +3567,30 @@ Test fake text containing:
 - END with no START
 - Two START markers
 
-Your program should STOP instead of guessing what to delete.
+Your program should **STOP** instead of guessing what to delete.
+
+---
+
+## Test 12: Blocklist Download
+
+Run your blocklist download feature.
+
+Confirm:
+
+1. The download succeeds.
+2. `data/blocklist.txt` now contains many real domains.
+3. Your previous test list was backed up as:
+
+```text
+data/blocklist.txt.bak
+```
+
+4. Invalid/comment lines from the downloaded source are ignored.
+5. `get_domains_to_block()` still returns a set of valid domains.
+
+Do not manually type the real blocklist.
+
+Your program should download and process it.
 
 ---
 
@@ -3039,11 +3634,15 @@ Run:
 sudo python3 main.py
 ```
 
+Your password may not appear while you type.
+
+That is normal.
+
 ---
 
 # Part 46: Test Real Blocking
 
-Start with a harmless test domain.
+Start with a harmless test domain before relying on the full real blocklist.
 
 Before blocking:
 
@@ -3066,39 +3665,62 @@ Also inspect the hosts file and verify that only the TB section changed.
 
 ---
 
-# Part 47: Test Whitelisting
+# Part 47: Test the Real Blocklist
 
-1. Add a domain to the blocklist.
-2. Add the same domain to the whitelist.
-3. Enable blocking.
-4. Inspect the hosts file.
+Once your safe testing is successful:
 
-The whitelisted domain should not appear in the TB blocker section.
+1. Use menu option 8.
+2. Download the real public blocklist.
+3. Confirm thousands of valid domains were loaded.
+4. Enable blocking.
+5. Check your status screen.
+6. Confirm the hosts file contains the TB markers and downloaded blocked domains.
+
+Do not manually paste the entire public blocklist into your hosts file.
+
+Your program should handle it.
 
 ---
 
-# Part 48: Test the Custom Blocklist
+# Part 48: Test Whitelisting
 
-1. Add a new domain through the menu.
+1. Choose a domain currently in the blocklist.
+2. Add the same domain to the whitelist.
+3. Apply the changes.
+4. Inspect the hosts file.
+
+The whitelisted domain should **not** appear in the TB blocker section.
+
+---
+
+# Part 49: Test the Custom Blocklist
+
+1. Add a safe test domain through the menu.
 2. Apply the change.
 3. Inspect the hosts file.
 4. Confirm the domain appears.
 
 ---
 
-# Part 49: Test Restore
+# Part 50: Test Restore
 
-Before testing Restore Original:
+Before testing Restore Original, understand that it is different from **Disable Blocking**.
 
-Make sure you understand that this is different from **Disable Blocking**.
+## Disable Blocking
 
-### Disable Blocking
+Removes only:
 
-Removes only the TB Ad Blocker section.
+```text
+# === TB AD BLOCKER START ===
+...
+# === TB AD BLOCKER END ===
+```
 
-### Restore Original
+Everything else remains.
 
-Replaces the entire hosts file with the permanent original backup.
+## Restore Original
+
+Replaces the entire current hosts file with the permanent original backup.
 
 When testing restore:
 
@@ -3110,75 +3732,158 @@ When testing restore:
 
 ---
 
-# Part 50: GitHub
+# Part 51: Keep GitHub Updated
 
-Your project should be stored in your own personal GitHub repository.
+Your personal repository was created at the beginning of the project.
 
-Suggested name:
+Now make sure your finished code is actually pushed to it.
 
-```text
-tb-ad-blocker
-```
-
-Before committing:
+Run:
 
 ```bash
 git status
 ```
 
-Make sure files such as:
+Review every file listed.
+
+Files such as these should **NOT** be committed:
 
 ```text
-hosts_original.bak
-hosts_20261020_184500.bak
+backups/hosts_original.bak
+backups/hosts_20261020_184500.bak
+data/blocklist.txt.bak
+__pycache__/
+.vscode/
+scratch.py
 ```
-
-are NOT listed as files that will be committed.
 
 ---
 
-## Basic Git Workflow
+## Final Project Commit
+
+When your project is working:
 
 ```bash
 git add .
-git commit -m "Describe what you changed"
+```
+
+Then:
+
+```bash
+git status
+```
+
+Read the list before committing.
+
+If everything is correct:
+
+```bash
+git commit -m "Complete TB Ad Blocker project"
+```
+
+Then:
+
+```bash
 git push
 ```
 
-Do not wait until the entire project is finished to make one giant commit.
+Refresh GitHub.
 
-Make commits as you complete meaningful parts of the project.
+Make sure your current project files are visible online.
 
 ---
 
-# Part 51: Personal README
+## Good Git Habits
 
-Your personal repository should include your own `README.md`.
+Do not make only one commit for the entire project.
 
-Include:
+Your history should show progress.
+
+Examples:
+
+```text
+Set up ad blocker project structure
+Add hosts file utilities
+Add blocklist processing
+Add hosts file backup and safety utilities
+Build core ad blocking logic
+Add command line menu and blocklist download
+Complete project testing and documentation
+```
+
+You do not need to use those exact messages.
+
+Your messages should clearly describe what changed.
+
+---
+
+# Part 52: Personal README
+
+Your personal repository already has a `README.md`.
+
+Now update it so it describes **your finished project**.
+
+Do not simply copy the Trailblazers assignment README.
+
+Your README should include:
 
 - Project title
 - What the application does
-- How it works
+- How the blocker works
 - Features you completed
 - Technologies used
 - Project structure
-- How to run it
+- How to run the program
+- How to use the menu
 - Safety features
 - Known limitations
 - Screenshots or demo
-- Any optional features you added
+- Optional features you added
 - What you learned
 
-Do not claim you completed a feature that you did not implement.
+If you did not build an optional feature, do not claim that you did.
 
 ---
 
-# Part 52: Troubleshooting
+# Part 53: Trailblazers Submission
 
-## `python` is not recognized
+After your personal repository is complete:
 
-Make sure Python is installed.
+1. Make sure your personal repository is public.
+2. Make sure your finished code is pushed.
+3. Make sure your README is complete.
+4. Make sure no personal backup files are on GitHub.
+5. Follow the Trailblazers Project 1 submission instructions.
+
+The Trailblazers submission process will have you:
+
+```text
+Fork the TB-Software-Projects repository
+        ↓
+Clone your fork
+        ↓
+Create your own submission branch
+        ↓
+Add your project to your personal submission folder
+        ↓
+Push your branch
+        ↓
+Open a Pull Request
+```
+
+Use the full instructions here:
+
+```text
+Project 1 - Ad Blocker/Submissions/README.md
+```
+
+Do not submit personal hosts-file backups to the Trailblazers repository.
+
+---
+
+# Part 54: Troubleshooting
+
+## `python` Is Not Recognized
 
 Try:
 
@@ -3200,13 +3905,51 @@ python3 --version
 
 ---
 
+## `git` Is Not Recognized
+
+Run:
+
+```bash
+git --version
+```
+
+If Git is not installed, install Git and restart VS Code.
+
+---
+
+## Git Push Fails
+
+First run:
+
+```bash
+git status
+```
+
+Then check:
+
+```bash
+git remote -v
+```
+
+Make sure your project is connected to your own:
+
+```text
+tb-ad-blocker
+```
+
+repository.
+
+If GitHub asks you to authenticate, complete the GitHub sign-in process.
+
+---
+
 ## Permission Denied
 
 The hosts file requires elevated permission.
 
 ### Windows
 
-Restart PowerShell/Terminal using:
+Restart PowerShell or Windows Terminal using:
 
 ```text
 Run as administrator
@@ -3226,26 +3969,28 @@ sudo python3 main.py
 
 Windows Security may warn when a program modifies the hosts file.
 
-This is because malware can also misuse the hosts file.
+That can happen because harmful software can also misuse the hosts file.
 
 Make sure:
 
 - You are running your own project
-- You understand the changes being made
+- You understand what the program is changing
 - Your backup exists
 
-Do not disable security software simply to make the project work.
+Do **not** disable your computer's security software simply to make the project work.
+
+If a managed or protected computer prevents the change, do not try to bypass that protection.
 
 ---
 
-## Blocking Is Enabled But the Website Still Loads
+## Blocking Is Enabled but the Website Still Loads
 
 Possible reasons:
 
 - DNS information is cached
 - The browser is still open
 - The domain being blocked is not actually the domain serving the ad
-- The browser/application may use its own DNS system
+- The browser or application may use its own DNS system
 - DNS-over-HTTPS, a VPN, or a proxy may bypass normal host resolution
 - The site may use a different subdomain
 
@@ -3276,7 +4021,7 @@ are different exact hostnames.
 
 Stop making changes.
 
-Do not keep running Enable/Disable repeatedly.
+Do not keep running Enable and Disable repeatedly.
 
 Check:
 
@@ -3300,50 +4045,75 @@ Use the restore feature only after understanding which backup you are restoring.
 
 If your program reports damaged markers, do not have the program guess which lines belong to it.
 
-Inspect the hosts file carefully.
-
-You should normally have exactly:
+You should normally have exactly one:
 
 ```text
 # === TB AD BLOCKER START ===
 ```
 
-and:
+and one:
 
 ```text
 # === TB AD BLOCKER END ===
 ```
 
+The program should stop if the markers are damaged rather than risk deleting unrelated entries.
+
 ---
 
 ## Blocklist Download Fails
 
-The core blocker should still work with the local blocklist.
+The program should keep the existing blocklist.
 
 Check:
 
 - Internet connection
-- Blocklist URL
-- Firewall/network restrictions
+- The blocklist URL
+- Firewall or network restrictions
 
-Do not erase a working local list because a download failed.
+Do not erase a working list because a download failed.
+
+The URL being used by this project is stored in:
+
+```python
+BLOCKLIST_URL
+```
+
+Do not replace it with random blocklists from the internet.
 
 ---
 
-# Part 53: Optional Extensions
+## `blocklist.txt` Still Has Only Three Domains
 
-Complete the core project before starting these.
+If you still see:
+
+```text
+example.com
+ads.example.com
+tracker.example.com
+```
+
+you are still using the development test list.
+
+Use the program's **Update/Reload Blocklist** option to download the real list.
+
+---
+
+# Part 55: Optional Extensions
+
+Complete the required project first.
+
+Then you may add additional features.
 
 Possible extensions include:
 
 - Tkinter graphical interface
-- Automatic blocklist updates
-- Multiple blocklist sources
+- Scheduled automatic blocklist updates
+- Multiple trusted blocklist sources
 - Blocklist statistics
 - Search blocked domains
 - Logging
 - Analytics dashboard
-- Scheduled updates
 - System tray controls
 - Start automatically when the computer starts
 - Local DNS filtering
@@ -3351,11 +4121,51 @@ Possible extensions include:
 - DNS request logging
 - DNS caching
 
+These are optional.
+
+The normal ability to **download the provided Peter Lowe blocklist through the menu is part of the project**, not an optional extension.
+
 ---
 
-# Final Check
+# Final Project Checklist
 
-Before considering your project complete, make sure you can explain:
+Before considering your project complete, confirm:
+
+- [ ] My personal GitHub repository exists.
+- [ ] I cloned my repository and worked on it in VS Code.
+- [ ] My project has multiple meaningful Git commits.
+- [ ] My latest code is pushed to GitHub.
+- [ ] My operating system is detected correctly.
+- [ ] My program finds the correct hosts file.
+- [ ] My program can read the hosts file.
+- [ ] My domain parser works.
+- [ ] Duplicate domains are removed.
+- [ ] My whitelist works.
+- [ ] My custom blocklist works.
+- [ ] My program downloads the provided real blocklist.
+- [ ] A failed blocklist download does not destroy the existing list.
+- [ ] My program creates an original hosts-file backup.
+- [ ] My program creates timestamped backups.
+- [ ] My personal backups are ignored by Git.
+- [ ] My program detects administrator/root permissions.
+- [ ] My program safely writes and verifies the hosts file.
+- [ ] A failed write restores a backup.
+- [ ] My program preserves unrelated hosts-file entries.
+- [ ] Damaged markers cause the program to stop safely.
+- [ ] I can enable blocking.
+- [ ] I can disable blocking.
+- [ ] I can view blocker status.
+- [ ] I can restore the original hosts file.
+- [ ] My DNS cache flush is handled safely.
+- [ ] `check_domain.py` works.
+- [ ] My personal README is complete.
+- [ ] I tested the project before submitting it.
+
+---
+
+# Make Sure You Can Explain Your Project
+
+Before submitting, make sure you can answer these questions in your own words:
 
 1. What is DNS?
 2. What is a hosts file?
@@ -3363,23 +4173,29 @@ Before considering your project complete, make sure you can explain:
 4. Why are administrator permissions required?
 5. What is a set?
 6. Why did we use a set for domains?
-7. What does the whitelist do?
-8. What does the custom blocklist do?
-9. What happens when blocking is enabled?
-10. What happens when blocking is disabled?
-11. Why are START and END markers used?
-12. Why do we create backups?
-13. What is the difference between the original backup and timestamped backups?
-14. Why do we verify the hosts file after writing?
-15. What happens if writing fails?
-16. What does `try/except` do?
-17. What does a `for` loop do?
-18. What is a function?
-19. Why can't this project block every advertisement?
-20. What is the difference between disabling blocking and restoring the original hosts file?
-21. Why might a browser still load something after the hosts file changes?
-22. Why should personal backup files never be pushed to GitHub?
-23. What part of your project was most difficult?
-24. What would you improve if you had more time?
+7. What does the main blocklist do?
+8. Where does the real main blocklist come from?
+9. Why did we use a small test list first?
+10. What does the whitelist do?
+11. What does the custom blocklist do?
+12. How is the final set of blocked domains calculated?
+13. What happens when blocking is enabled?
+14. What happens when blocking is disabled?
+15. Why are START and END markers used?
+16. Why do we create backups?
+17. What is the difference between the original backup and timestamped backups?
+18. Why do we verify the hosts file after writing?
+19. What happens if writing fails?
+20. What does `try/except` do?
+21. What does a `for` loop do?
+22. What is a function?
+23. Why can't this project block every advertisement?
+24. What is the difference between disabling blocking and restoring the original hosts file?
+25. Why might a browser still load something after the hosts file changes?
+26. Why should personal backup files never be pushed to GitHub?
+27. What does cloning a GitHub repository mean?
+28. What is the difference between a commit and a push?
+29. What part of your project was most difficult?
+30. What would you improve if you had more time?
 
-If you used AI or outside resources while building the project, you should still be able to answer these questions in your own words.
+If you used AI or outside resources while building the project, you should still be able to explain every part of the code you submitted.
