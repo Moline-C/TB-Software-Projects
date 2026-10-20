@@ -3,21 +3,16 @@
 **Member:** [Your Name]
 
 ## Overview
-
-Briefly describe what your project does in 2–3 sentences.
+Briefly describe what your project does.
 
 ## Technologies
-
-Python, Flask, Git, etc.
+Python, Git, etc.
 
 ## My Contributions
-
-Briefly explain the main features or components you personally built.
+Explain the main features you personally implemented.
 
 ## Project Repository
-
-[View My Project on GitHub](PASTE YOUR PERSONAL REPOSITORY LINK HERE)
+[View My Project on GitHub](YOUR_LINK)
 
 ## Demo
-
-Add a screenshot, video, or deployed project link if applicable.
+Add a screenshot, video, or demo link if applicable.
