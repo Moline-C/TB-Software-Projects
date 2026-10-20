@@ -1,34 +1,51 @@
 # Project 1 - Ad Blocker
 
-Build a real system-wide Python ad blocker that uses your computer's hosts file to block known advertising and tracking domains.
+## Overview
 
-## Project Goals
+For our first Fall 2026 project, you will build a real system-wide ad blocker using Python.
 
-By completing this project, you will practice:
+Instead of only hiding ads inside one browser, this program will use your computer's **hosts file** to prevent known advertising and tracking domains from loading across your system.
 
-- Python fundamentals
-- Functions
+The finished program will allow you to turn blocking on and off, manage blocked domains, whitelist domains, view the current blocking status, and safely restore your original hosts file.
+
+This project is designed to introduce real Python programming while also showing how software can interact with your operating system.
+
+---
+
+## What You Will Learn
+
+Throughout this project, you will practice:
+
+- Python variables and data types
+- Conditionals
 - Loops
-- Sets
-- File reading and writing
+- Functions
+- Lists and sets
+- Reading and writing files
 - Imports and modules
-- Error handling
-- Working with operating system files
+- File paths
+- Error handling with `try` and `except`
+- Operating system interaction
 - Git and GitHub
+- Debugging and testing
 - Technical documentation
 
-## What You Will Build
+You are not expected to already know all of these concepts.
 
-Your program will be able to:
+We will introduce important concepts during Software Team meetings, and the project tutorial will walk through the program step by step.
 
-- Enable ad blocking
-- Disable ad blocking
-- Load domains from a blocklist
-- Whitelist domains
-- Add custom blocked domains
-- Back up the hosts file
-- Restore the original hosts file
-- Detect your operating system
-- Preserve existing hosts file entries
+---
 
-Detailed build instructions will be provided in the project tutorial.
+## How the Ad Blocker Works
+
+When your computer tries to visit a website, it has to determine the IP address associated with that domain.
+
+Normally, your computer may use DNS to look up that address.
+
+The **hosts file** allows your computer to manually map a domain to a specific IP address before using normal DNS resolution.
+
+Our program will add entries such as:
+
+```text
+0.0.0.0 ads.example.com
+0.0.0.0 tracker.example.com
