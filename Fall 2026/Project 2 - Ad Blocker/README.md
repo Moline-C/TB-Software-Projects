@@ -2,7 +2,7 @@
 
 ## Overview
 
-For our first Fall 2026 project, you will build a real system-wide ad blocker using Python.
+For our second Fall 2026 project, you will build a real system-wide ad blocker using Python.
 
 Instead of only hiding ads inside one browser, this program will use your computer's **hosts file** to prevent known advertising and tracking domains from loading across your system.
 
