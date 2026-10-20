@@ -1,4 +1,4 @@
-# Project 1 - Ad Blocker Submission Instructions
+# Project 2 - Ad Blocker Submission Instructions
 
 Each Software Team member will keep their completed Ad Blocker project in **two places**:
 
@@ -273,13 +273,13 @@ Create your own branch.
 Use this naming format:
 
 ```text
-firstname-lastname-project1
+firstname-lastname-project2
 ```
 
 Example:
 
 ```bash
-git checkout -b maya-smith-project1
+git checkout -b maya-smith-project2
 ```
 
 Replace `maya-smith` with your own name.
@@ -300,7 +300,7 @@ Inside the Trailblazers repository, navigate to:
 
 ```text
 Fall 2026/
-└── Project 1 - Ad Blocker/
+└── Project 2 - Ad Blocker/
     └── Submissions/
 ```
 
@@ -322,7 +322,7 @@ Your submission should eventually look similar to:
 
 ```text
 Fall 2026/
-└── Project 1 - Ad Blocker/
+└── Project 2 - Ad Blocker/
     └── Submissions/
         └── Maya-Smith/
 ```
@@ -456,8 +456,8 @@ Make sure you are only adding files inside your own submission folder.
 You should NOT be modifying:
 
 ```text
-Project 1 - Ad Blocker/README.md
-Project 1 - Ad Blocker/TUTORIAL.md
+Project 2 - Ad Blocker/README.md
+Project 2 - Ad Blocker/TUTORIAL.md
 other students' submission folders
 the root repository README
 ```
@@ -491,7 +491,7 @@ Create a commit.
 Use a clear commit message such as:
 
 ```bash
-git commit -m "Add Maya Smith Project 1 submission"
+git commit -m "Add Maya Smith Project 2 submission"
 ```
 
 Replace the name with your own.
@@ -505,7 +505,7 @@ Push your branch to your fork.
 Example:
 
 ```bash
-git push -u origin maya-smith-project1
+git push -u origin maya-smith-project2
 ```
 
 Use the name of the branch you created earlier.
@@ -563,13 +563,13 @@ The **compare branch** should be your submission branch.
 Use this title format:
 
 ```text
-Project 1 - Your Name
+Project 2 - Your Name
 ```
 
 Example:
 
 ```text
-Project 1 - Maya Smith
+Project 2 - Maya Smith
 ```
 
 ---
@@ -625,7 +625,7 @@ git add .
 Commit the changes:
 
 ```bash
-git commit -m "Address Project 1 review feedback"
+git commit -m "Address Project 2 review feedback"
 ```
 
 Push again:
@@ -662,7 +662,7 @@ Navigate to:
 
 ```text
 Fall 2026/
-Project 1 - Ad Blocker/
+Project 2 - Ad Blocker/
 Submissions/
 ```
 
@@ -706,7 +706,7 @@ TB-Software-Projects → main
 Use:
 
 ```text
-Project 1 - Your Name
+Project 2 - Your Name
 ```
 
 as the pull request title.

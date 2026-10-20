@@ -1,4 +1,4 @@
-# Project 1 - Ad Blocker
+# Project 2 - Ad Blocker
 
 ## Overview
 

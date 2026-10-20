@@ -3853,7 +3853,7 @@ After your personal repository is complete:
 2. Make sure your finished code is pushed.
 3. Make sure your README is complete.
 4. Make sure no personal backup files are on GitHub.
-5. Follow the Trailblazers Project 1 submission instructions.
+5. Follow the Trailblazers Project 2 submission instructions.
 
 The Trailblazers submission process will have you:
 
@@ -3874,7 +3874,7 @@ Open a Pull Request
 Use the full instructions here:
 
 ```text
-Project 1 - Ad Blocker/Submissions/README.md
+Project 2 - Ad Blocker/Submissions/README.md
 ```
 
 Do not submit personal hosts-file backups to the Trailblazers repository.
