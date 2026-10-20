@@ -239,10 +239,12 @@ You should also be able to explain how your project works without reading direct
 
 ## Submitting Your Project
 
-Each member will maintain the full project in their own personal GitHub repository.
+Each member will keep their completed project in their own **personal GitHub repository** and will also submit their completed project files to the **Trailblazers Software Projects repository**.
 
-Do **not** upload your entire project directly into the Trailblazers Software Projects repository.
+Your personal repository is the version you can use for your portfolio, resume, and job applications.
 
-When your project is complete, you will submit a project summary that links to your personal repository.
+Your Trailblazers submission will be added through a **fork and pull request**.
 
-**[View Submission Instructions](./Submissions/README.md)**
+Do not include personal hosts-file backups or other ignored/generated files in your submission.
+
+**[View Complete Submission Instructions](./Submissions/README.md)**
