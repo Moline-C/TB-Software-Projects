@@ -2,7 +2,7 @@
 
 **Trailblazers Software Team - Fall 2026**
 
-Build **TB System Resource Monitor**, a command-line Python application that reports how your computer's CPU, memory, and disk are being used, warns you when resources run high, shows which programs use the most memory, and saves snapshots to a log file.
+Build **System Resource Monitor**, a command-line Python application that reports how your computer's CPU, memory, and disk are being used, warns you when resources run high, shows which programs use the most memory, and saves snapshots to a log file.
 
 **Start here: [TUTORIAL.md](./TUTORIAL.md)**
 
@@ -43,7 +43,7 @@ A menu-driven command-line application:
 
 ```text
 ================================
-    TB System Resource Monitor
+    System Resource Monitor
 ================================
 1. View Current System Status
 2. Start Live Monitor
@@ -59,7 +59,7 @@ Example live monitor screen:
 
 ```text
 ==============================
-   TB System Resource Monitor
+   System Resource Monitor
 ==============================
 
 CPU Usage:      34.2%
@@ -116,10 +116,10 @@ Works on **Windows, macOS, and Linux**.
 
 ## Project Structure
 
-Your personal repository, `tb-system-resource-monitor`, will be organized like this:
+Your personal repository, `system-resource-monitor`, will be organized like this:
 
 ```text
-tb-system-resource-monitor/
+system-resource-monitor/
 │
 ├── main.py            # Menu and user interaction
 ├── monitor.py         # System info, resource monitoring, warnings, live monitor, processes
@@ -214,7 +214,7 @@ Document any extensions you add in your personal README.
 
 ## Submission
 
-1. Complete the project in your **personal public repository** named `tb-system-resource-monitor`.
+1. Complete the project in your **personal public repository** named `system-resource-monitor`.
 2. Make sure all of your work is committed and pushed to GitHub.
 3. Follow the instructions in [**Submissions/README.md**](./Submissions/README.md) to fork the central Trailblazers repository and submit your project through a pull request.
 
