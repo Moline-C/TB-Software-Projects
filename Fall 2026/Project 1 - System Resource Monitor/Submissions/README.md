@@ -2,7 +2,7 @@
 
 When your project is complete, submit your repository using the **Project 1 Submission Form**:
 
-**[Submit Project 1 Here](PASTE-GOOGLE-FORM-LINK-HERE)**
+**[Submit Project 1 Here](https://docs.google.com/forms/d/e/1FAIpQLScxxN8Hf9XsP0LKnVBqx1IazovZRVywMW1d6xgCqGACje0rwA/viewform?usp=publish-editor)**
 
 The form will ask for:
 
